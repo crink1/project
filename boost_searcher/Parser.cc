@@ -225,6 +225,7 @@ bool Save(const std::vector<HtmlInfo_t> &results, const std::string &output)
 
     out.write(outstr.c_str(), outstr.size());
   }
+  
 
   out.close();
 
