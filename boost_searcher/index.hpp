@@ -70,13 +70,14 @@ namespace ns_index
     bool BuildIndex(const std::string &input)
     {
       std::ifstream in(input, std::ios::in | std::ios::binary);
-      if (in.is_open())
+      if (!in.is_open())
       {
         std::cerr << input << "  open error" << std::endl;
         return false;
       }
 
       std::string line_file;
+      int cnt = 0;
       while (std::getline(in, line_file))
       {
         DocInfo *di = BuildForwarIndex(line_file);
@@ -87,7 +88,13 @@ namespace ns_index
           continue;
         }
         BuildInvertedIndex(*di);
+        if(cnt % 1000 == 0)
+        {
+          std::cout <<"已构建："  << cnt <<std::endl;
+        }
+        cnt++;
       }
+      std::cout << "已完成构建" << std::endl;
       return true;
     }
 
@@ -186,4 +193,6 @@ namespace ns_index
     std::unordered_map<std::string, Inverted> inverted_index;
   };
 
+     index * index::instance = nullptr;
+     std::mutex index::_lock;
 }
