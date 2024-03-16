@@ -1,9 +1,12 @@
 #include "cpp-http/httplib.h"
 #include "searcher.hpp"
+
+
 const std::string input = "data/output/raw.bin";
 const std::string root_dir = "./rootdir";
 int main()
 {
+  lg.changemod(2);
   searcher::Searcher search;
   search.InitSearcher(input);
 
@@ -20,7 +23,8 @@ int main()
         }
 
         std::string word = req.get_param_value("word");
-        std::cout << "搜索: " << word <<std::endl;
+       // std::cout << "搜索: " << word <<std::endl;
+        lg(Debug, "用户搜索：%s", word.c_str());
         std::string json_string;
         search.Search(word, &json_string);
         res.set_content(json_string, "application/json"); 

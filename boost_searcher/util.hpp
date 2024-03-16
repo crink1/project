@@ -6,6 +6,7 @@
 #include <vector>
 #include <boost/algorithm/string.hpp>
 #include "cppjieba/Jieba.hpp"
+#include "Log.hpp"
 namespace util
 {
   class FileUtil
@@ -16,11 +17,12 @@ namespace util
       std::ifstream in(file_path, std::ios::in);
       if (!in.is_open())
       {
-        std::cerr << "open file  " << file_path << "  err" << std::endl;
+        //std::cerr << "open file  " << file_path << "  err" << std::endl;
+        lg(Error, "Failed to open file: %s",file_path.c_str());
         return false;
       }
       std::string line;
-      while (std::getline(in, line)) // operator bool
+      while (std::getline(in, line))
       {
         *out += line;
       }

@@ -3,6 +3,7 @@
 #include <vector>
 #include <boost/filesystem.hpp>
 #include "util.hpp"
+#include "Log.hpp"
 // using namespace std;
 
 // html路径
@@ -30,7 +31,8 @@ int main()
 
   if (!EnumFile(input, &files_list))
   {
-    std::cerr << "enum file name err" << std::endl;
+    //std::cerr << "enum file name err" << std::endl;
+    lg(Error, "enum file name error");
     return 1;
   }
 
@@ -39,14 +41,16 @@ int main()
 
   if (!Parse(files_list, &results))
   {
-    std::cerr << "parse err" << std::endl;
+    //std::cerr << "parse err" << std::endl;
+    lg(Error, "parse error");
     return 2;
   }
 
   // 解析完把结果存到output里面，使用\3作为分隔符
   if (!Save(results, output))
   {
-    std::cerr << "save err" << std::endl;
+    //std::cerr << "save err" << std::endl;
+    lg(Error, "save error");
     return 3;
   }
 
@@ -62,7 +66,8 @@ bool EnumFile(const std::string &input, std::vector<std::string> *files_list)
   // 判断路径文件是否存在
   if (!fs::exists(root_path))
   {
-    std::cerr << input << "path err" << std::endl;
+    //std::cerr << input << "path err" << std::endl;
+    lg(Error, "%s path error", input.c_str());
     return false;
   }
   // 空迭代器用于递归结束的判断
@@ -209,7 +214,8 @@ bool Save(const std::vector<HtmlInfo_t> &results, const std::string &output)
   std::ofstream out(output, std::ios::out | std::ios::binary);
   if (!out.is_open())
   {
-    std::cerr << "open " << output << " err" << std::endl;
+    //std::cerr << "open " << output << " err" << std::endl;
+    lg(Error, "open %s error", output.c_str());
     return false;
   }
 

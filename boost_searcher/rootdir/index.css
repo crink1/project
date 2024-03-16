@@ -5,62 +5,96 @@
     margin: 0;
 }
 
+html,
 body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 200ms ease;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    height: 100%;
 }
 
-.box > div {
-    transition: all 200ms ease;
+
+.container {
+
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.light {
-    background: pink;
+
+.container .search {
+
+    position: relative;
+    margin-bottom: 20px;
 }
 
-.light .box {
-    width: 120px;
-    height: 60px;
-    background: #fdd6df;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
+
+.container .search input {
+
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+.container .search button {
+
     position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 20px;
+    background-color: #1342c3;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.light .box > div {
-    position: absolute;
-    left: 5px;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    background: pink url(image/太阳.png) 6px 7px no-repeat;
-    background-size: 35px 35px;
+.container .result {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-.dark {
-    background: rgba(50,50,50,1);
+.container .result .item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
-.dark .box {
-    width: 120px;
-    height: 60px;
-    background: rgba(70,70,70,1);
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    position: absolute;
+.container .result .item a {
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    color: #4e6ef2;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
-.dark .box > div {
-    position: absolute;
-    left: 65px;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    background: rgba(50,50,50,1) url(image/月亮.png) 6px 7px no-repeat;
-    background-size: 35px 35px;
+.container .result .item a:hover {
+    text-decoration: underline;
+    background-color: #e9e9e9;
+}
+
+.container .result .item p {
+    margin-top: 5px;
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container .result .item i {
+
+    display: block;
+    font-style: normal;
+    color: green;
 }

@@ -7,6 +7,7 @@
 #include <mutex>
 #include <unordered_map>
 #include "util.hpp"
+#include "Log.hpp"
 
 namespace ns_index
 {
@@ -49,7 +50,9 @@ namespace ns_index
     {
       if (doc_id >= forward_index.size())
       {
-        std::cerr << "doc id out range, error " << std::endl;
+        //std::cerr << "doc id out range, error " << std::endl;
+        lg(Error, "doc_id out range, error");
+        return nullptr;
       }
       return &forward_index[doc_id];
     }
@@ -60,7 +63,8 @@ namespace ns_index
       std::unordered_map<std::string, Inverted>::iterator it = inverted_index.find(key);
       if (it == inverted_index.end())
       {
-        std::cerr << key << "not find" << std::endl;
+        //std::cerr << key << "not find" << std::endl;
+        lg(Error, "%s not find", key.c_str());
         return nullptr;
       }
       return &(it->second);
@@ -72,7 +76,8 @@ namespace ns_index
       std::ifstream in(input, std::ios::in | std::ios::binary);
       if (!in.is_open())
       {
-        std::cerr << input << "  open error" << std::endl;
+        //std::cerr << input << "  open error" << std::endl;
+        lg(Error, "%s open error", input.c_str());
         return false;
       }
 
@@ -83,18 +88,22 @@ namespace ns_index
         DocInfo *di = BuildForwarIndex(line_file);
         if (nullptr == di)
         {
-          std::cerr << "BuildForwarIndex fail!"
-                    << "    filename: " << line_file << std::endl;
+          //std::cerr << "BuildForwarIndex fail!"
+          //          << "    filename: " << line_file << std::endl;
+        lg(Warning, "BuildForwarIndex fail!!, filename: %s", line_file.c_str());
           continue;
         }
         BuildInvertedIndex(*di);
         if(cnt % 1000 == 0)
         {
-          std::cout <<"已构建："  << cnt <<std::endl;
+          
+          //std::cout <<"已构建："  << cnt <<std::endl;
+          lg(Debug, "已构建：%d", cnt);
         }
         cnt++;
       }
-      std::cout << "已完成构建" << std::endl;
+      //std::cout << "已完成构建" << std::endl;
+      lg(Debug, "已完成构建");
       return true;
     }
 

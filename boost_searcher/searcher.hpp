@@ -1,3 +1,5 @@
+#pragma once
+
 #include "index.hpp"
 #include "util.hpp"
 #include <algorithm>
@@ -26,7 +28,8 @@ namespace searcher
      {
         //创建index对象
         index = ns_index::index::GetInstance();
-        std::cout << "获取index单例成功" << std::endl;
+        //std::cout << "获取index单例成功" << std::endl;
+        lg(Debug, "获取index单例成功");
         //使用index对象建立引索
         index->BuildIndex(input);
 
@@ -132,9 +135,9 @@ namespace searcher
         {
           return "None";
         }
-
-        return html_content.substr(begin, end - begin);
-
+        std::string ret = html_content.substr(begin, end - begin);
+        ret += "...";
+        return ret;
      }
 
    private:
